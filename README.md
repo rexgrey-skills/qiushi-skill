@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets\logo.png" width="400"/>
+  <img src="assets/logo.png" width="400"/>
 </p>
 
 # 🔴 求是 Skill —— 武装 AI 的大脑
@@ -12,7 +12,7 @@
 
 **你的 AI 不应该是一个唯唯诺诺的工具。它应该是一个先看事实、再下判断的行动者。**
 
-「求是 Skill」是一个 AI Agent Skills 合集，从教员思想中提炼出一条总原则和九大方法论工具，系统性地武装 AI 的大脑。不是口号，不是鸡汤——是经过实践检验的、可操作的思维方法论。
+「求是 Skill」是一个 AI Agent Skills 合集，从教员思想中提炼出一条总原则和九大方法论工具，系统性地武装 AI 的大脑。不是口号，不是鸡汤，而是可操作的方法论集合。
 
 每一条方法都有据可依、有迹可循，直接引用教员选集原文（详见各 skill 目录下的 `original-texts.md`）。
 
@@ -23,12 +23,12 @@
 - 🌀 面对复杂问题，胡子眉毛一把抓，抓不住重点
 - 🗣️ 没有调查就急于给出答案，犯教条主义的错误
 - 😴 方案做完不自查，"差不多就行了"
-- 🏳️ 遇到困难就说"这超出了我的能力"，缺乏斗争精神
+- 🏳️ 遇到困难就说"这超出了我的能力"，缺乏持续推进的能力
 - 🎯 同时做十件事，件件做不好，不懂集中兵力
 
 教员思想中的方法论——矛盾分析、实践认识论、调查研究、群众路线、批评与自我批评、持久战略——恰恰解决的就是"怎么想问题、怎么做事情"这个根本问题。
 
-**这不是Politics，这是Methodology。** 教员思想中的哲学方法论可以用于指导任何需要分析问题和解决问题的场景。
+**这不是 Politics，这是 Methodology。** 教员思想中的哲学方法论可以用于指导任何需要分析问题和解决问题的场景。
 
 ## 🏗️ 方法结构
 
@@ -68,7 +68,7 @@ graph TD
 | ⚔️ 矛盾分析法 | 抓主要矛盾 | 《矛盾论》 | 复杂问题分析 |
 | 🔄 实践认识论 | 实践→认识→再实践 | 《实践论》 | 方案验证与迭代 |
 | 🔎 调查研究 | 没有调查就没有发言权 | 《反对本本主义》 | 决策前的信息收集 |
-| 👥 群众路线 | 从群众中来到群众中去 | 《关于领导方法的若干问题》 | 需求收集与方案验证 |
+| 👥 群众路线 | 从群众中来到群众中去 | 《关于领导方法的若干问题》 | 反馈整合与方案验证 |
 | 🪞 批评与自我批评 | 惩前毖后治病救人 | 《论联合政府》 | 工作审视与质量改进 |
 | ⏳ 持久战略 | 战略上藐视战术上重视 | 《论持久战》 | 长期复杂任务规划 |
 | 🎯 集中兵力 | 集中优势兵力各个歼灭 | 《中国革命战争的战略问题》 | 优先级决策与资源聚焦 |
@@ -76,6 +76,12 @@ graph TD
 | ⚖️ 统筹兼顾 | 调动一切积极因素 | 《论十大关系》 | 多目标平衡与权衡 |
 
 ## 📦 安装
+
+### 系统要求
+
+- **Windows**：默认使用 PowerShell hook，无需额外安装 Bash
+- **macOS / Linux**：需要可用的 `bash` 或 `sh`
+- **验证脚本**：仓库内置 `tests/validate.ps1`，可用于安装后自检
 
 ### 方式一：手动安装
 
@@ -89,11 +95,28 @@ claude plugin add .
 
 如果你已经克隆过仓库，进入目录后直接执行 `claude plugin add .` 即可。
 
+Windows 说明：
+- 从 `1.2.0` 起，SessionStart hook 优先走原生 PowerShell，不再依赖 Git Bash / WSL
+- 如果你的环境禁用了 PowerShell 脚本执行，请使用 `-ExecutionPolicy Bypass` 运行验证脚本确认安装
+
+macOS / Linux 说明：
+- hook 入口使用 `hooks/session-start`
+- 请确认系统上有 `bash` 或 `sh`
+
 #### Cursor
 
 1. 克隆仓库到本地
 2. 将项目目录加入 Cursor 的插件路径
 3. 确认 `.cursor-plugin/plugin.json` 已被识别
+4. 使用验证脚本检查 hook 与命令文件是否完整
+
+#### Codex
+
+参考 [docs/README.codex.md](docs/README.codex.md) 或直接让 Codex 读取 [.codex/INSTALL.md](.codex/INSTALL.md)。
+
+#### OpenCode
+
+参考 [docs/README.opencode.md](docs/README.opencode.md) 或直接让 OpenCode 读取 [.opencode/INSTALL.md](.opencode/INSTALL.md)。
 
 #### 其他平台
 
@@ -101,6 +124,7 @@ claude plugin add .
 
 1. 将 `skills/arming-thought/SKILL.md` 作为 system prompt 的一部分注入
 2. 将各具体 skill 的 `SKILL.md` 作为按需加载的参考文档
+3. 如果支持 Markdown commands，可一并加载 `commands/` 目录
 
 ### 方式二：直接贴给 AI agent 安装
 
@@ -123,21 +147,31 @@ claude plugin add .
 5. 安装完成后请检查以下文件是否存在且可读：
    .claude-plugin/plugin.json
    .cursor-plugin/plugin.json
+   commands/
    hooks/hooks.json
+   hooks/session-start.ps1
    hooks/session-start
 
-6. 最后告诉我如何验证安装是否成功。
+6. 最后运行：
+   powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File tests/validate.ps1
+
+7. 告诉我如何验证安装是否成功。
 ```
 
 ## 🚀 使用方式
 
 安装后，每次会话开始时「武装思想」入口 skill 会自动注入，AI 将：
 
-1. 🫡 以"为人民服务"的精神对待每一个任务
-2. ☀️ 先以 `实事求是` 约束判断，避免脱离实际和先验结论
-3. 🧭 根据场景自动判断应该调用哪个思想武器，并遵循其具体方法流程
+1. ☀️ 先以 `实事求是` 约束判断，避免脱离实际和先验结论
+2. 🧭 根据场景判断是否值得调用某个思想武器
+3. 🛠️ 在明显适用时加载对应 skill，而不是机械全调用
 
-你也可以手动调用任何思想武器：
+### 手动命令入口
+
+仓库现在提供与 skill 对应的 `commands/*.md` 手动命令入口。  
+在支持 Markdown slash commands 的助手里，可直接调用这些命令；不支持命令目录的助手，则直接打开同名文件或加载对应 `skills/*/SKILL.md`。
+
+可用命令：
 
 ```
 /contradiction-analysis   ⚔️  矛盾分析法
@@ -149,31 +183,49 @@ claude plugin add .
 /concentrate-forces       🎯  集中兵力
 /spark-prairie-fire       🔥  星火燎原
 /overall-planning         ⚖️  统筹兼顾
+/workflows                🔗  工作流组合
 ```
+
+### 安装验证
+
+Windows：
+
+```powershell
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File tests/validate.ps1
+```
+
+该脚本会检查：
+- JSON 配置是否有效
+- hook 文件与命令文件是否齐全
+- `SKILL.md` / agent / command 的 frontmatter 是否完整
+- 本地 Markdown 链接和图片路径是否存在
+- Windows hook 的原生 PowerShell 输出是否可解析
+
+更多平台细节见 [docs/platforms.md](docs/platforms.md)。
 
 ## 📚 支撑文件
 
 除核心 SKILL.md 外，部分 skill 目录下还包含以下支撑文件：
 
-**📜 原著依据（`original-texts.md`）**
-每个方法论 skill 都附有独立的原著引用文件，收录教员选集中的完整原文引用。这些引用不会被 AI 自动加载（节省 token），但可随时查阅，保证每条方法论都有据可依、字字有出处。
+**📜 原著依据（`original-texts.md`）**  
+每个方法论 skill 都附有独立的原著引用文件，收录教员选集中的完整原文引用。这些引用不会被 AI 自动加载，但可随时查阅，保证每条方法论都有据可依。
 
-**🤖 Subagent Prompts**
+**🤖 Subagent Prompts**  
 可派遣的专项 agent，将方法论转化为可执行的自动化任务：
 - `investigation-agent-prompt.md` — 系统化调查研究 agent
 - `contradiction-mapper-prompt.md` — 结构化矛盾映射 agent
 - `feedback-synthesizer-prompt.md` — 反馈意见综合 agent
 
-**🗺️ Reference Guides**
+**🗺️ Reference Guides**  
 将抽象方法论落地为具体可操作的参考工具：
-- `contradiction-types-reference.md` — 矛盾类型速查表（含软件工程场景映射）
-- `review-checklist.md` — 工作审查检查清单（四维度自检）
-- `phase-assessment-guide.md` — 持久战阶段评估指南（三阶段判断指标）
+- `contradiction-types-reference.md` — 矛盾类型速查表
+- `review-checklist.md` — 工作审查检查清单
+- `phase-assessment-guide.md` — 持久战阶段评估指南
 
 ## ❌ 这不是什么
 
-- 🚫 **这不是Propaganda。** 是将经过历史实践检验的方法论抽象应用于通用问题解决。
-- 💻 **这不是软件工程专用。** 分析商业问题、研究学术课题、处理日常决策——任何需要"想清楚"的场景都适用。
+- 🚫 **这不是 Propaganda。** 是将经过历史实践检验的方法论抽象应用于通用问题解决。
+- 💻 **这不是软件工程专用。** 分析商业问题、研究学术课题、处理日常决策都适用。
 - 📖 **这不是教条。** 教员自己最反对教条主义："对于具体的事物作具体的分析。"
 
 ## 🗂️ 项目结构
@@ -181,49 +233,37 @@ claude plugin add .
 ```
 qiushi-skill/
 ├── .claude-plugin/plugin.json        # Claude Code 插件配置
+├── .codex/INSTALL.md                 # Codex 安装入口
 ├── .cursor-plugin/plugin.json        # Cursor 插件配置
+├── .opencode/INSTALL.md              # OpenCode 安装入口
+├── commands/                         # 手动 slash commands 入口
 ├── hooks/                            # Session 注入系统
 │   ├── hooks.json
-│   ├── session-start                 # Bash 注入脚本
+│   ├── session-start                 # POSIX shell 注入脚本
+│   ├── session-start.ps1             # Windows PowerShell 注入脚本
 │   └── run-hook.cmd                  # Windows 适配
 ├── agents/
 │   └── self-critic.md                # 自我批评审查 subagent
 ├── skills/
-│   ├── arming-thought/               # 入口：武装思想
+│   ├── arming-thought/
 │   │   └── SKILL.md
-│   ├── contradiction-analysis/       # 第一层：矛盾分析法
-│   │   ├── SKILL.md
-│   │   ├── original-texts.md         # 原著依据
-│   │   ├── contradiction-mapper-prompt.md    # 矛盾映射 agent
-│   │   └── contradiction-types-reference.md  # 矛盾类型速查
-│   ├── practice-cognition/           # 第一层：实践认识论
-│   │   ├── SKILL.md
-│   │   └── original-texts.md
-│   ├── investigation-first/          # 第二层：调查研究
-│   │   ├── SKILL.md
-│   │   ├── original-texts.md
-│   │   └── investigation-agent-prompt.md     # 调查研究 agent
-│   ├── mass-line/                    # 第二层：群众路线
-│   │   ├── SKILL.md
-│   │   ├── original-texts.md
-│   │   └── feedback-synthesizer-prompt.md    # 反馈综合 agent
-│   ├── criticism-self-criticism/     # 第二层：批评与自我批评
-│   │   ├── SKILL.md
-│   │   ├── original-texts.md
-│   │   └── review-checklist.md       # 工作审查检查清单
-│   ├── protracted-strategy/          # 第三层：持久战略
-│   │   ├── SKILL.md
-│   │   ├── original-texts.md
-│   │   └── phase-assessment-guide.md # 阶段评估指南
-│   ├── concentrate-forces/           # 第三层：集中兵力
-│   │   ├── SKILL.md
-│   │   └── original-texts.md
-│   ├── spark-prairie-fire/           # 第三层：星火燎原
-│   │   ├── SKILL.md
-│   │   └── original-texts.md
-│   └── overall-planning/             # 第三层：统筹兼顾
-│       ├── SKILL.md
-│       └── original-texts.md
+│   ├── contradiction-analysis/
+│   ├── practice-cognition/
+│   ├── investigation-first/
+│   ├── mass-line/
+│   ├── criticism-self-criticism/
+│   ├── protracted-strategy/
+│   ├── concentrate-forces/
+│   ├── spark-prairie-fire/
+│   ├── overall-planning/
+│   └── workflows/
+│       └── SKILL.md
+├── tests/
+│   └── validate.ps1                  # 配置、frontmatter、hook、链接自检
+├── docs/
+│   ├── platforms.md
+│   ├── README.codex.md
+│   └── README.opencode.md
 ├── package.json
 ├── CHANGELOG.md
 ├── LICENSE
@@ -238,6 +278,14 @@ qiushi-skill/
 ## 📝 原著引用说明
 
 本项目中所有语录和方法论均引自公开出版物。每条引用都标注了原文出处（篇名和年份），力求高度忠实于原著本意。引用目的仅为方法论研究和应用，不涉及政治立场。
+
+## 🔌 平台支持
+
+- Claude Code：插件安装 + SessionStart 自动注入 + commands
+- Cursor：插件元数据 + commands + 验证脚本
+- Codex：原生安装入口文档见 [docs/README.codex.md](docs/README.codex.md)
+- OpenCode：原生安装入口文档见 [docs/README.opencode.md](docs/README.opencode.md)
+- 通用：直接复用 `skills/` 与 `commands/`
 
 ## ⚖️ 许可证
 
